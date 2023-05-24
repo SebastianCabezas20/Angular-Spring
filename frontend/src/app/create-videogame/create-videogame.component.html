@@ -1,0 +1,81 @@
+<div class="" style="margin-left: 200px; margin-right: 200px">
+  <form novalidate [formGroup]="form" (ngSubmit)="Onsubmit()">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="Nombre">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="Nombre"
+          placeholder="Nombre videojuego"
+          formControlName="nombre"
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="Plataforma">Plataforma</label>
+        <input
+          type="text"
+          class="form-control"
+          id="Plataforma"
+          placeholder="Plataforma del videojuego"
+          formControlName="plataforma"
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputGenero">Genero</label>
+      <input
+        type="text"
+        class="form-control"
+        id="inputGenero"
+        placeholder="Genero del videojuego"
+        formControlName="genero"
+      />
+    </div>
+    <div class="form-group">
+      <label for="inputDesarrollador">Desarrollador</label>
+      <input
+        type="text"
+        class="form-control"
+        id="inputDesarrollador"
+        placeholder="Desarrollador del videojuego"
+        formControlName="desarrollador"
+      />
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputAño">Año de lanzamiento</label>
+        <input
+          type="number"
+          class="form-control"
+          id="inputAño"
+          formControlName="año"
+        />
+      </div>
+      <div class="form-group col-md-2">
+        <label for="inputVentas">Ventas en el mundo</label>
+        <input
+          type="number"
+          class="form-control"
+          id="inputVentas"
+          formControlName="ventas"
+        />
+      </div>
+      <div class="form-group col-md-2">
+        <label for="inputRanting">Ranting</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputRanting"
+          formControlName="rating"
+        />
+      </div>
+      <div class="form-group col-md-2">
+        <input type="reset" class="form-control" (click)="clear()" />
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+      Sign in
+    </button>
+  </form>
+</div>

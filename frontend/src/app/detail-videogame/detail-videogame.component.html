@@ -1,0 +1,123 @@
+<form *ngIf="videogame" novalidate (ngSubmit)="update()" [formGroup]="form">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Caracteristica</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Nombre</th>
+        <td colspan="2">
+          <input
+            type="text"
+            formControlName="nombre"
+            value=" {{ videogame.name }} "
+            [readOnly]="read"
+          />
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">Plataforma</th>
+        <td colspan="2">
+          <input
+            type="text"
+            value=" {{ videogame.platform }} "
+            [readOnly]="read"
+            formControlName="plataforma"
+          />
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">Genero</th>
+        <td colspan="2">
+          <input
+            type="text"
+            value=" {{ videogame.genre }} "
+            [readOnly]="read"
+            formControlName="genero"
+          />
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">Desarrollador</th>
+        <td colspan="2">
+          <input
+            type="text"
+            value=" {{ videogame.developer }} "
+            [readOnly]="read"
+            formControlName="desarrollador"
+          />
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">Año de lanzamiento</th>
+        <td colspan="2">
+          <input
+            type="text"
+            value=" {{ videogame.year_of_Release }} "
+            [readOnly]="read"
+            formControlName="año"
+          />
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">Ventas en el mundo</th>
+        <td colspan="2">
+          <input
+            type="text"
+            value=" {{ videogame.global_Sales }} "
+            [readOnly]="read"
+            formControlName="ventas"
+          />
+          Millones
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">Rating</th>
+        <td colspan="2">
+          <input
+            type="text"
+            value=" {{ videogame.rating }} "
+            [readOnly]="read"
+            formControlName="rating"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="row">
+    <button
+      type="button"
+      class="btn btn-primary col-md-1"
+      style="margin-left: 90px"
+      (click)="read = !read"
+      [hidden]="!read"
+    >
+      Editar
+    </button>
+
+    <button
+      type="submit"
+      class="btn btn-primary col-md-1"
+      style="margin-left: 90px"
+      (click)="read = !read"
+      [hidden]="read"
+      [disabled]="form.invalid"
+    >
+      Guardar
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-primary col-md-1"
+      style="margin-left: 90px"
+      (click)="delete(videogame)"
+      [hidden]="!read"
+    >
+      Borrar
+    </button>
+  </div>
+</form>

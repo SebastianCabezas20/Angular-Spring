@@ -1,0 +1,39 @@
+<div
+  class="alert alert-danger d-flex align-items-center"
+  role="alert"
+  *ngIf="viewDelete"
+>
+  <svg
+    class="bi flex-shrink-0 me-2"
+    width="24"
+    height="24"
+    role="img"
+    aria-label="Danger:"
+  >
+    <use xlink:href="#exclamation-triangle-fill" />
+  </svg>
+  <div>Se a eliminado un videojuego</div>
+</div>
+
+<div style="margin: 100px" class="row col-md-6">
+  <div
+    *ngFor="let videogame of videogameList"
+    class="card"
+    style="width: 18rem; margin: 20px"
+  >
+    <img src="" class="card-img-top" alt="" />
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="delete(videogame)"
+    ></button>
+    <div class="card-body">
+      <h5 class="card-title">{{ videogame.name }}</h5>
+      <p class="card-text">{{ videogame.id }}</p>
+      <a class="btn btn-primary" routerLink="/videogame/{{ videogame.id }}"
+        >Ver más detalles</a
+      >
+    </div>
+  </div>
+</div>
