@@ -71,11 +71,22 @@
         />
       </div>
       <div class="form-group col-md-2">
+        <label for="inputImagen ">Imagen</label>
+        <input
+          type="file"
+          class="form-control"
+          id="inputImagen"
+          accept=".png, .jpg"
+          (change)="mostrar($event)"
+        />
+      </div>
+      <div class="form-group col-md-2">
         <input type="reset" class="form-control" (click)="clear()" />
       </div>
+      <img [src]="imageUrl" alt="Preview" />
     </div>
     <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
-      Sign in
+      crear videojuego
     </button>
   </form>
 </div>

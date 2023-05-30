@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Videogame } from '../videogame';
 import { VideogameService } from '../videogame.service';
+import { interval, pipe, timeInterval } from 'rxjs';
 
 @Component({
   selector: 'app-videogame',
@@ -29,12 +30,18 @@ export class VideogameComponent implements OnInit {
 
     if (option) {
       this.videojuegoService.deleteVideogame(videogame.id).subscribe((p) => {
-        this.videoDelete = p[0];
-        console.log(this.videoDelete.id);
+        this.videoDelete = p;
         this.videogameList = this.videogameList.filter(
           (game) => game.id != this.videoDelete.id
         );
+        this.alertDelete();
       });
     }
+  }
+
+  alertDelete() {
+    this.viewDelete = true;
+    const seconds = interval(4000);
+    seconds.pipe(timeInterval()).subscribe(() => (this.viewDelete = false));
   }
 }

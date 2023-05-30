@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Videogame } from '../videogame';
 import { VideogameService } from '../videogame.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-create-videogame',
@@ -10,6 +11,7 @@ import { VideogameService } from '../videogame.service';
 })
 export class CreateVideogameComponent implements OnInit {
   form!: FormGroup;
+  imageUrl!: string;
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -29,7 +31,10 @@ export class CreateVideogameComponent implements OnInit {
       ]),
     });
   }
-  constructor(private serviceVideogame: VideogameService) {}
+  constructor(
+    private serviceVideogame: VideogameService,
+    private location: Location
+  ) {}
 
   clear() {
     this.form.reset();
@@ -40,6 +45,20 @@ export class CreateVideogameComponent implements OnInit {
       .postVideogame(this.save())
       .subscribe(() => alert('Videojuego Creado'));
     this.clear();
+    this.location.back();
+  }
+
+  mostrar(event: any) {
+    const file: File = event.target.files[0];
+    console.log(event.target.files[0]);
+    const reader: FileReader = new FileReader();
+
+    reader.onload = (e: any) => {
+      this.imageUrl = e.target.result;
+      console.log(this.imageUrl);
+    };
+
+    reader.readAsDataURL(file);
   }
 
   save(): Videogame {
@@ -51,6 +70,7 @@ export class CreateVideogameComponent implements OnInit {
       global_Sales: this.form.get('ventas')?.value,
       year_of_Release: this.form.get('año')?.value,
       rating: this.form.get('rating')?.value,
+      url: this.imageUrl,
     } as Videogame;
   }
 }

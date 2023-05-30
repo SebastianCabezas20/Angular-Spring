@@ -49,8 +49,9 @@ export class DetailVideogameComponent implements OnInit {
           ]),
           rating: new FormControl(this.videogame.rating, [
             Validators.required,
-            Validators.maxLength(2),
+            Validators.maxLength(4),
           ]),
+          url: new FormControl(this.videogame.url, [Validators.required]),
         });
       });
     }
@@ -67,6 +68,7 @@ export class DetailVideogameComponent implements OnInit {
         year_of_Release: this.form.get('año')?.value,
         rating: this.form.get('rating')?.value,
         global_Sales: this.form.get('ventas')?.value,
+        url: this.videogame.url,
       } as Videogame)
       .subscribe();
   }
