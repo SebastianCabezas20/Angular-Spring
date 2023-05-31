@@ -22,13 +22,19 @@
     class="card"
     style="width: 18rem; margin: 20px; z-index: 0"
   >
-    <img [src]="videogame.url" class="card-img-top" alt="" />
     <button
       type="button"
       class="btn-close"
       aria-label="Close"
       (click)="delete(videogame)"
     ></button>
+    <img
+      [src]="videogame.url"
+      class="card-img-top"
+      alt=""
+      style="width: auto; max-height: 300px"
+    />
+
     <div class="card-body">
       <h5 class="card-title">{{ videogame.name }}</h5>
 

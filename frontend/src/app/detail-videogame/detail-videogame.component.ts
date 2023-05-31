@@ -13,8 +13,10 @@ import { Location } from '@angular/common';
 export class DetailVideogameComponent implements OnInit {
   id: string = '';
   videogame!: Videogame;
+  tipo: string = 'text';
   read: boolean = true;
   form!: FormGroup;
+  image!: string;
 
   constructor(
     private router: ActivatedRoute,
@@ -51,8 +53,8 @@ export class DetailVideogameComponent implements OnInit {
             Validators.required,
             Validators.maxLength(4),
           ]),
-          url: new FormControl(this.videogame.url, [Validators.required]),
         });
+        this.image = this.videogame.url;
       });
     }
   }
@@ -68,7 +70,7 @@ export class DetailVideogameComponent implements OnInit {
         year_of_Release: this.form.get('año')?.value,
         rating: this.form.get('rating')?.value,
         global_Sales: this.form.get('ventas')?.value,
-        url: this.videogame.url,
+        url: this.image,
       } as Videogame)
       .subscribe();
   }
@@ -81,5 +83,17 @@ export class DetailVideogameComponent implements OnInit {
         this.location.back();
       });
     }
+  }
+
+  onchangeImage(event: any) {
+    const file: File = event.target.files[0];
+    console.log(event.target.files[0]);
+    const reader: FileReader = new FileReader();
+
+    reader.onload = (e: any) => {
+      this.videogame.url = this.image = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
   }
 }
