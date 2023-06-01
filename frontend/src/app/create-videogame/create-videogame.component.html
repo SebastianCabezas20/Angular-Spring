@@ -1,28 +1,33 @@
-<div class="" style="margin-left: 200px; margin-right: 200px">
-  <form novalidate [formGroup]="form" (ngSubmit)="Onsubmit()">
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="Nombre">Nombre</label>
-        <input
-          type="text"
-          class="form-control"
-          id="Nombre"
-          placeholder="Nombre videojuego"
-          formControlName="nombre"
-        />
-      </div>
-      <div class="form-group col-md-6">
-        <label for="Plataforma">Plataforma</label>
-        <input
-          type="text"
-          class="form-control"
-          id="Plataforma"
-          placeholder="Plataforma del videojuego"
-          formControlName="plataforma"
-        />
-      </div>
+<form
+  novalidate
+  [formGroup]="form"
+  style="margin: 60px"
+  (ngSubmit)="Onsubmit()"
+>
+  <div class="row">
+    <div class="form-group col-lg-6">
+      <label for="Nombre">Nombre</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Nombre"
+        placeholder="Nombre videojuego"
+        formControlName="nombre"
+      />
     </div>
-    <div class="form-group">
+    <div class="form-group col-lg-6">
+      <label for="Plataforma">Plataforma</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Plataforma"
+        placeholder="Plataforma del videojuego"
+        formControlName="plataforma"
+      />
+    </div>
+  </div>
+  <div class="row" style="margin-top: 20px">
+    <div class="form-group col-lg-6">
       <label for="inputGenero">Genero</label>
       <input
         type="text"
@@ -32,7 +37,7 @@
         formControlName="genero"
       />
     </div>
-    <div class="form-group">
+    <div class="form-group col-lg-6">
       <label for="inputDesarrollador">Desarrollador</label>
       <input
         type="text"
@@ -42,51 +47,67 @@
         formControlName="desarrollador"
       />
     </div>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="inputAño">Año de lanzamiento</label>
-        <input
-          type="number"
-          class="form-control"
-          id="inputAño"
-          formControlName="año"
-        />
-      </div>
-      <div class="form-group col-md-2">
-        <label for="inputVentas">Ventas en el mundo</label>
-        <input
-          type="number"
-          class="form-control"
-          id="inputVentas"
-          formControlName="ventas"
-        />
-      </div>
-      <div class="form-group col-md-2">
-        <label for="inputRanting">Ranting</label>
-        <input
-          type="text"
-          class="form-control"
-          id="inputRanting"
-          formControlName="rating"
-        />
-      </div>
-      <div class="form-group col-md-2">
-        <label for="inputImagen ">Imagen</label>
-        <input
-          type="file"
-          class="form-control"
-          id="inputImagen"
-          accept=".png, .jpg"
-          (change)="mostrar($event)"
-        />
-      </div>
-      <div class="form-group col-md-2">
-        <input type="reset" class="form-control" (click)="clear()" />
-      </div>
-      <img [src]="imageUrl" alt="Preview" />
+  </div>
+  <div class="row" style="margin-top: 20px">
+    <div class="form-group col-lg-6">
+      <label for="inputAño">Año de lanzamiento</label>
+      <input
+        type="number"
+        class="form-control"
+        id="inputAño"
+        formControlName="año"
+      />
     </div>
-    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
-      crear videojuego
+    <div class="form-group col-lg-2">
+      <label for="inputVentas">Ventas en millones en el mundo</label>
+      <input
+        type="number"
+        class="form-control"
+        id="inputVentas"
+        formControlName="ventas"
+      />
+    </div>
+    <div class="form-group col-lg-2">
+      <label for="inputRanting">Ranting</label>
+      <input
+        type="text"
+        class="form-control"
+        id="inputRanting"
+        formControlName="rating"
+      />
+    </div>
+    <div class="form-group col-lg-2">
+      <label for="inputImagen ">Imagen</label>
+      <input
+        type="file"
+        class="form-control"
+        id="inputImagen"
+        accept=".png, .jpg"
+        (change)="mostrar($event)"
+      />
+    </div>
+  </div>
+  <div class="row" style="margin-top: 20px">
+    <div class="form-group col-lg-2">
+      <input type="reset" class="form-control" (click)="clear()" />
+    </div>
+  </div>
+  <div class="row">
+    >
+    <button
+      type="submit"
+      style="margin-top: 25px"
+      class="btn btn-primary col-lg-2"
+      [disabled]="form.invalid"
+    >
+      Crear videojuego
     </button>
-  </form>
-</div>
+  </div>
+
+  <img
+    [src]="imageUrl"
+    alt="Preview"
+    *ngIf="imageUrl"
+    style="margin-top: 30px; max-height: 300px; width: auto; margin-left: 50%"
+  />
+</form>

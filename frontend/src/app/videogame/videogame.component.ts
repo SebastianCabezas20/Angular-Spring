@@ -44,4 +44,10 @@ export class VideogameComponent implements OnInit {
     const seconds = interval(4000);
     seconds.pipe(timeInterval()).subscribe(() => (this.viewDelete = false));
   }
+
+  search(busqueda: string) {
+    this.videojuegoService
+      .search(busqueda)
+      .subscribe((video: Videogame[]) => (this.videogameList = video));
+  }
 }

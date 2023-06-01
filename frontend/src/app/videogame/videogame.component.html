@@ -1,48 +1,73 @@
-<div class="row col-lg-12">
-  <div
-    class="alert alert-danger d-flex align-items-center"
-    role="alert"
-    style="position: fixed; z-index: 100"
-    *ngIf="viewDelete"
-  >
-    <svg
-      class="bi flex-shrink-0 me-2"
-      width="24"
-      height="24"
-      role="img"
-      aria-label="Danger:"
-    >
-      <use xlink:href="#exclamation-triangle-fill" />
-    </svg>
-    <div>Se a eliminado un videojuego</div>
-  </div>
-
-  <div
-    *ngFor="let videogame of videogameList"
-    class="card"
-    style="width: 18rem; margin: 20px; z-index: 0"
-  >
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close"
-      (click)="delete(videogame)"
-    ></button>
-    <img
-      [src]="videogame.url"
-      class="card-img-top"
-      alt=""
-      style="width: auto; max-height: 300px"
+<div class="row">
+  <form class="d-flex col-lg-4 m-3" role="search">
+    <input
+      #valueSearch
+      class="form-control"
+      type="search"
+      placeholder="Buscar"
+      aria-label="Search"
+      (click)="search(valueSearch.value)"
     />
+    <button
+      class="btn btn-outline-success"
+      style="margin-left: 10px"
+      type="submit"
+    >
+      Buscar
+    </button>
+  </form>
 
-    <div class="card-body">
-      <h5 class="card-title">{{ videogame.name }}</h5>
-
-      <p class="card-text">{{ videogame.developer }}</p>
-
-      <a class="btn btn-primary" routerLink="/videogame/{{ videogame.id }}"
-        >Ver más detalles</a
+  <div class="row col-lg-12">
+    <div
+      class="alert alert-danger d-flex align-items-center"
+      role="alert"
+      style="position: fixed; z-index: 100"
+      *ngIf="viewDelete"
+    >
+      <svg
+        class="bi flex-shrink-0 me-2"
+        width="24"
+        height="24"
+        role="img"
+        aria-label="Danger:"
       >
+        <use xlink:href="#exclamation-triangle-fill" />
+      </svg>
+      <div>Se a eliminado un videojuego</div>
+    </div>
+
+    <div
+      *ngFor="let videogame of videogameList"
+      class="card"
+      style="width: 18rem; margin: 20px; z-index: 0"
+    >
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="delete(videogame)"
+      ></button>
+      <img
+        [src]="videogame.url"
+        class="card-img-top"
+        alt=""
+        style="width: auto; max-height: 300px"
+      />
+
+      <div class="card-body">
+        <h5 class="card-title">{{ videogame.name }}</h5>
+
+        <p class="card-text">{{ videogame.developer }}</p>
+
+        <a class="btn btn-primary" routerLink="/videogame/{{ videogame.id }}"
+          >Ver más detalles</a
+        >
+      </div>
+    </div>
+    <div *ngIf="!videogameList" class="d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
   </div>
 </div>
