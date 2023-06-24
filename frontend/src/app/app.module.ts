@@ -8,6 +8,8 @@ import { VideogameComponent } from './videogame/videogame.component';
 import { DetailVideogameComponent } from './detail-videogame/detail-videogame.component';
 import { CreateVideogameComponent } from './create-videogame/create-videogame.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PageButtonsComponent } from './page-buttons/page-buttons.component';
+import { DropdownPageComponent } from './dropdown-page/dropdown-page.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     VideogameComponent,
     DetailVideogameComponent,
     CreateVideogameComponent,
+    PageButtonsComponent,
+    DropdownPageComponent,
   ],
   imports: [
     BrowserModule,

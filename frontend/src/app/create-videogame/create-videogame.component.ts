@@ -41,21 +41,26 @@ export class CreateVideogameComponent implements OnInit {
   }
 
   Onsubmit() {
-    this.serviceVideogame
-      .postVideogame(this.save())
-      .subscribe(() => alert('Videojuego Creado'));
-    this.clear();
-    this.location.back();
+    this.serviceVideogame.postVideogame(this.save()).subscribe({
+      next: () => {
+        alert('Videojuego Creado');
+        this.clear();
+        this.location.back();
+      },
+      error: () => {
+        alert(
+          'No se puede crear un videouego en este momento. Intentelo más tarde'
+        );
+      },
+    });
   }
 
   mostrar(event: any) {
     const file: File = event.target.files[0];
-    console.log(event.target.files[0]);
     const reader: FileReader = new FileReader();
 
     reader.onload = (e: any) => {
       this.imageUrl = e.target.result;
-      console.log(this.imageUrl);
     };
 
     reader.readAsDataURL(file);

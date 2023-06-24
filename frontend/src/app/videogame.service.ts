@@ -1,25 +1,22 @@
-import { Injectable } from '@angular/core';
-import {
-  Observable,
-  Subject,
-  catchError,
-  debounceTime,
-  distinctUntilChanged,
-  switchMap,
-} from 'rxjs';
+import { Injectable, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Videogame } from './videogame';
 import { HttpClient } from '@angular/common/http';
+import { ResponseInit } from './response-init';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VideogameService {
-  private searchSubject = new Subject<string>();
-
   constructor(private http: HttpClient) {}
 
-  getVideogames(): Observable<Videogame[]> {
-    return this.http.get<Videogame[]>('http://localhost:8080/videogame/get');
+  //Numero sera el total de documentos y videogame, los maximos de documentos por pagina
+  // Solo se use en el fetch inicial
+  getVideogames(skip: number, max: number): Observable<ResponseInit> {
+    return this.http.post<ResponseInit>('http://localhost:8080/videogame/get', {
+      skip: skip,
+      numeroPorPagina: max,
+    });
   }
 
   getVideogameById(id: string): Observable<Videogame> {
@@ -38,7 +35,7 @@ export class VideogameService {
 
   patchVideogame(videogame: Videogame) {
     console.log('Actualizando un videojuego');
-    console.log(videogame);
+
     return this.http.patch<Videogame>(
       `http://localhost:8080/videogame/update/id`,
       videogame
@@ -52,19 +49,9 @@ export class VideogameService {
     );
   }
 
-  search(busqueda: string): Observable<Videogame[]> {
-    return this.searchSubject.pipe(
-      debounceTime(300),
-
-      // ignore new term if same as previous term
-      distinctUntilChanged(),
-
-      // switch to new search observable each time the term changes
-      switchMap((busqueda: string) => this.searchVideogame(busqueda))
+  search(busqueda: string): Observable<any> {
+    return this.http.get<Videogame[]>(
+      `http://localhost:8080/videogame/get/name?name=${busqueda}`
     );
-  }
-
-  searchVideogame(busqueda: string): Observable<Videogame[]> {
-    return this.http.get<Videogame[]>('http://localhost:8080/videogame/get');
   }
 }

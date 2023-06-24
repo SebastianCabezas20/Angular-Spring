@@ -2,12 +2,14 @@ package com.proyecto.backend.Models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document("videojuegos")
 public class Videogame {
     @Id
     String id;
-    String Name;
+    @Field("Name")
+    String name;
     String Platform;
     int Year_of_Release;
     String Genre;
@@ -34,11 +36,11 @@ public class Videogame {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setName(String nameNew) {
+        name = nameNew;
     }
 
     public String getPlatform() {

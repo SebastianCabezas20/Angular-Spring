@@ -17,6 +17,7 @@ export class DetailVideogameComponent implements OnInit {
   read: boolean = true;
   form!: FormGroup;
   image!: string;
+  errorLoader: boolean = false;
 
   constructor(
     private router: ActivatedRoute,
@@ -30,31 +31,36 @@ export class DetailVideogameComponent implements OnInit {
 
   getVideogameId(id: string | null) {
     if (id != null) {
-      this.serviceVideogame.getVideogameById(id).subscribe((video) => {
-        this.videogame = video;
-        this.form = new FormGroup({
-          nombre: new FormControl(this.videogame.name, [Validators.required]),
-          plataforma: new FormControl(this.videogame.platform, [
-            Validators.required,
-          ]),
-          genero: new FormControl(this.videogame.genre, [Validators.required]),
-          desarrollador: new FormControl(this.videogame.developer, [
-            Validators.required,
-          ]),
-          año: new FormControl(this.videogame.year_of_Release, [
-            Validators.required,
-            Validators.max(2023),
-            Validators.min(1800),
-          ]),
-          ventas: new FormControl(this.videogame.global_Sales, [
-            Validators.required,
-          ]),
-          rating: new FormControl(this.videogame.rating, [
-            Validators.required,
-            Validators.maxLength(4),
-          ]),
-        });
-        this.image = this.videogame.url;
+      this.serviceVideogame.getVideogameById(id).subscribe({
+        next: (video) => {
+          this.videogame = video;
+          this.form = new FormGroup({
+            nombre: new FormControl(this.videogame.name, [Validators.required]),
+            plataforma: new FormControl(this.videogame.platform, [
+              Validators.required,
+            ]),
+            genero: new FormControl(this.videogame.genre, [
+              Validators.required,
+            ]),
+            desarrollador: new FormControl(this.videogame.developer, [
+              Validators.required,
+            ]),
+            año: new FormControl(this.videogame.year_of_Release, [
+              Validators.required,
+              Validators.max(2023),
+              Validators.min(1800),
+            ]),
+            ventas: new FormControl(this.videogame.global_Sales, [
+              Validators.required,
+            ]),
+            rating: new FormControl(this.videogame.rating, [
+              Validators.required,
+              Validators.maxLength(4),
+            ]),
+          });
+          this.image = this.videogame.url;
+        },
+        error: () => (this.errorLoader = true),
       });
     }
   }
@@ -79,15 +85,18 @@ export class DetailVideogameComponent implements OnInit {
     let option = confirm('Estas seguro de eliminar ' + videogame.name);
 
     if (option) {
-      this.serviceVideogame.deleteVideogame(videogame.id).subscribe((p) => {
-        this.location.back();
+      this.serviceVideogame.deleteVideogame(videogame.id).subscribe({
+        next: (p) => {
+          alert('Videojuego borrado');
+          this.location.back();
+        },
+        error: () => (this.errorLoader = true),
       });
     }
   }
 
   onchangeImage(event: any) {
     const file: File = event.target.files[0];
-    console.log(event.target.files[0]);
     const reader: FileReader = new FileReader();
 
     reader.onload = (e: any) => {

@@ -1,0 +1,7 @@
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item" *ngFor="let page of paginas">
+      <a class="page-link btn" (click)="onClickPage(page)">{{ page.numero }}</a>
+    </li>
+  </ul>
+</nav>

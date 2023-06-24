@@ -1,25 +1,7 @@
 <div class="row">
-  <form class="d-flex col-lg-4 m-3" role="search">
-    <input
-      #valueSearch
-      class="form-control"
-      type="search"
-      placeholder="Buscar"
-      aria-label="Search"
-      (click)="search(valueSearch.value)"
-    />
-    <button
-      class="btn btn-outline-success"
-      style="margin-left: 10px"
-      type="submit"
-    >
-      Buscar
-    </button>
-  </form>
-
   <div class="row col-lg-12">
     <div
-      class="alert alert-danger d-flex align-items-center"
+      class="alert alert-danger d-flex align-items-start"
       role="alert"
       style="position: fixed; z-index: 100"
       *ngIf="viewDelete"
@@ -35,7 +17,28 @@
       </svg>
       <div>Se a eliminado un videojuego</div>
     </div>
-
+    <div>
+      <div class="d-flex col-lg-4 m-3" role="search">
+        <input
+          #valueSearch
+          class="form-control"
+          type="search"
+          placeholder="Buscar"
+          id="search"
+          aria-label="Search"
+        />
+        <button
+          class="btn btn-outline-success"
+          style="margin-left: 10px"
+          (click)="search(valueSearch.value)"
+        >
+          Buscar
+        </button>
+      </div>
+    </div>
+    <div>
+      <app-dropdown-page></app-dropdown-page>
+    </div>
     <div
       *ngFor="let videogame of videogameList"
       class="card"
@@ -64,9 +67,32 @@
         >
       </div>
     </div>
-    <div *ngIf="!videogameList" class="d-flex justify-content-center">
-      <div class="spinner-border" role="status">
+
+    <div class="d-flex justify-content-center">
+      <app-page-buttons
+        [documentosTotales]="numeroTotalDoc"
+        [medidaPagina]="numeroDocPagina"
+        (OnClick)="paginaSeleccionada($event)"
+      ></app-page-buttons>
+    </div>
+
+    <div
+      *ngIf="!visible()"
+      class="d-flex justify-content-center"
+      style="margin-top: 200px"
+    >
+      <div *ngIf="viewLoader" class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
+      </div>
+      <div *ngIf="!viewLoader && !error" class="d-flex justify-content-center">
+        <h1>No hay existencias del producto</h1>
+      </div>
+
+      <div *ngIf="error && !viewLoader" class="d-flex justify-content-center">
+        <div>
+          <h1>PRODUCTOS NO DISPONIBLES</h1>
+          <h2>INTENTE MÁS TARDE :(</h2>
+        </div>
       </div>
     </div>
   </div>

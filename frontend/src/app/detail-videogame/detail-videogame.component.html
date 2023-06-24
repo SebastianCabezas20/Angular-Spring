@@ -157,3 +157,19 @@
     src="{{ videogame.url }}"
   />
 </div>
+
+<div
+  *ngIf="!videogame"
+  class="d-flex justify-content-center"
+  style="margin-top: 200px"
+>
+  <div *ngIf="!errorLoader" class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+<div *ngIf="errorLoader" class="d-flex justify-content-center">
+  <div>
+    <h1>PRODUCTO NO DISPONIBLE</h1>
+    <h2>INTENTE MÁS TARDE :(</h2>
+  </div>
+</div>

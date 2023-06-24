@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.proyecto.backend.Models.ResponseData;
 import com.proyecto.backend.Models.Videogame;
 import com.proyecto.backend.Repositories.RepositoryVG;
 
@@ -16,8 +17,15 @@ public class VideogameService {
     private RepositoryVG repositoryVG;
 
     // Obtener todos los videojuegos
-    public List<Videogame> fetchAll() {
-        return repositoryVG.findAll();
+    public ResponseData fetchAll(int skip, int numeroPorPagina) {
+        // Obtencion de documentos
+        List<Videogame> lista = repositoryVG.findByPage(skip, numeroPorPagina);
+        // Preparar la respuesta
+        Long numero = repositoryVG.count();
+        ResponseData response = new ResponseData();
+        response.setNumeroDocumentos(numero);
+        response.setVideojuegos(lista);
+        return response;
     }
 
     // Creacion de un videojuego
@@ -57,13 +65,18 @@ public class VideogameService {
         }
     }
 
-    // Obtener de un videojuego por su nombre
-    public Videogame getByName(String name) {
+    // Obtener de un videojuego por su nombre para busqueda
+    public Videogame[] getByName(String name) {
+
         try {
-            return repositoryVG.findByName(name);
+            return repositoryVG.FindByName(name);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    public long countDocument() {
+        return repositoryVG.count();
     }
 }
