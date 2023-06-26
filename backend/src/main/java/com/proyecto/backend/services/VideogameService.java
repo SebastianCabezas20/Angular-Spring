@@ -17,11 +17,11 @@ public class VideogameService {
     private RepositoryVG repositoryVG;
 
     // Obtener todos los videojuegos
-    public ResponseData fetchAll(int skip, int numeroPorPagina) {
+    public ResponseData fetchAll(int skip, int numeroPorPagina, String busqueda) {
         // Obtencion de documentos
-        List<Videogame> lista = repositoryVG.findByPage(skip, numeroPorPagina);
+        List<Videogame> lista = repositoryVG.findByPage(skip, numeroPorPagina, busqueda);
         // Preparar la respuesta
-        Long numero = repositoryVG.count();
+        int numero = repositoryVG.FindAndCountSearch(busqueda).size();
         ResponseData response = new ResponseData();
         response.setNumeroDocumentos(numero);
         response.setVideojuegos(lista);

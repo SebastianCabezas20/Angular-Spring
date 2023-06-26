@@ -1,18 +1,18 @@
-<!-- Example single danger button -->
-<div class="btn-group float-end me-5 mb-3">
-  <button
-    type="button"
-    class="btn btn-danger dropdown-toggle"
-    data-bs-toggle="dropdown"
-    aria-expanded="false"
-  >
-    Numero de videouegos por pagina
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">Action</a></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
-    <li><hr class="dropdown-divider" /></li>
-    <li><a class="dropdown-item" href="#">Separated link</a></li>
-  </ul>
+<div class="float-end">
+  <h6>Cantidad de videojuegos por pagina</h6>
+  <div class="d-flex justify-content-center">
+    <div class="col-4">
+      <select
+        class="form-select form-select-sm"
+        aria-label=".form-select-sm example"
+        [value]="numero"
+        (change)="cambiarCantidad($event)"
+      >
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="40">40</option>
+      </select>
+    </div>
+  </div>
 </div>

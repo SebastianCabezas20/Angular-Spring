@@ -10,6 +10,7 @@ import { CreateVideogameComponent } from './create-videogame/create-videogame.co
 import { ReactiveFormsModule } from '@angular/forms';
 import { PageButtonsComponent } from './page-buttons/page-buttons.component';
 import { DropdownPageComponent } from './dropdown-page/dropdown-page.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { DropdownPageComponent } from './dropdown-page/dropdown-page.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -28,7 +28,8 @@ public class VideogameController {
 
     @PostMapping("/get")
     public ResponseEntity<ResponseData> getVideogame(@RequestBody Pagination page) {
-        return ResponseEntity.ok(this.serviceVideojuego.fetchAll(page.getSkip(), page.getNumeroPorPagina()));
+        return ResponseEntity
+                .ok(this.serviceVideojuego.fetchAll(page.getSkip(), page.getNumeroPorPagina(), page.getBusqueda()));
 
     }
 

@@ -12,10 +12,15 @@ export class VideogameService {
 
   //Numero sera el total de documentos y videogame, los maximos de documentos por pagina
   // Solo se use en el fetch inicial
-  getVideogames(skip: number, max: number): Observable<ResponseInit> {
+  getVideogames(
+    skip: number,
+    max: number,
+    busqueda: string
+  ): Observable<ResponseInit> {
     return this.http.post<ResponseInit>('http://localhost:8080/videogame/get', {
       skip: skip,
       numeroPorPagina: max,
+      busqueda: busqueda,
     });
   }
 

@@ -18,8 +18,14 @@ public interface RepositoryVG extends MongoRepository<Videogame, String> {
     Videogame[] FindByName(String Name);
 
     @Aggregation(pipeline = {
+            "{'$match': {'Name': {'$regex': ?2}}}",
             "{ '$skip' : ?0}",
             "{ '$limit' : ?1 }"
     })
-    List<Videogame> findByPage(int skip, int limit);
+    List<Videogame> findByPage(int skip, int limit, String Name);
+
+    @Aggregation(pipeline = {
+            "{'$match': {'Name': {'$regex': ?0}}}",
+    })
+    List<Videogame> FindAndCountSearch(String busqueda);
 }

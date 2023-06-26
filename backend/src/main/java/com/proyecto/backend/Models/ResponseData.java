@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ResponseData {
     List<Videogame> videojuegos;
-    Long numeroDocumentos;
+    int numeroDocumentos;
 
     public List<Videogame> getVideojuegos() {
         return videojuegos;
@@ -14,11 +14,11 @@ public class ResponseData {
         this.videojuegos = videojuegos;
     }
 
-    public Long getNumeroDocumentos() {
+    public int getNumeroDocumentos() {
         return numeroDocumentos;
     }
 
-    public void setNumeroDocumentos(Long numeroDocumentos) {
+    public void setNumeroDocumentos(int numeroDocumentos) {
         this.numeroDocumentos = numeroDocumentos;
     }
 

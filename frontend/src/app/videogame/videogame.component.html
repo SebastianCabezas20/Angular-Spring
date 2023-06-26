@@ -37,7 +37,10 @@
       </div>
     </div>
     <div>
-      <app-dropdown-page></app-dropdown-page>
+      <app-dropdown-page
+        [numero]="numeroDocPagina"
+        (numeroTamanio)="changeSize($event)"
+      ></app-dropdown-page>
     </div>
     <div
       *ngFor="let videogame of videogameList"

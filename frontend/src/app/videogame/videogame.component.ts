@@ -14,8 +14,10 @@ export class VideogameComponent implements OnInit {
   error: boolean = false;
   //Numero de documentos totales en la base de datos
   numeroTotalDoc!: number;
-  /// Numero de documentos por pagina
+  /// Numero de documentos por pagina por defecto
   numeroDocPagina: number = 10;
+
+  busqueda: string = '';
 
   viewDelete: boolean = false;
   viewLoader: boolean = true;
@@ -28,7 +30,7 @@ export class VideogameComponent implements OnInit {
 
   async getDataVideogames() {
     this.videojuegoService
-      .getVideogames(0, this.numeroDocPagina)
+      .getVideogames(0, this.numeroDocPagina, this.busqueda)
       .pipe()
       .subscribe({
         next: (responseInit: ResponseInit) => {
@@ -73,7 +75,7 @@ export class VideogameComponent implements OnInit {
     this.videogameList = [];
     this.viewLoader = true;
     this.videojuegoService
-      .getVideogames($event.minimo, this.numeroDocPagina)
+      .getVideogames($event.minimo, this.numeroDocPagina, this.busqueda)
       .subscribe({
         next: (response: ResponseInit) => {
           this.videogameList = response.videojuegos;
@@ -85,19 +87,49 @@ export class VideogameComponent implements OnInit {
       });
   }
 
-  //BUSQUEDA CON PAGINACION
+  //BUSQUEDA CON PAGINACION FALTANTE
+  // En cada paginacion se resetea el paginado
   search(busqueda: string) {
+    this.busqueda = busqueda;
     this.videogameList = [];
     this.viewLoader = true;
-    this.videojuegoService.search(busqueda).subscribe({
-      next: (videojuegos) => {
-        this.videogameList = videojuegos;
-        if (this.videogameList.length == 0) {
-          this.viewLoader = false;
-        }
-      },
+    // Pasar el numero por pagina
+    // Como es la primera debe ser 0 el minimo o skip
+    this.videojuegoService
+      .getVideogames(0, this.numeroDocPagina, this.busqueda)
+      .subscribe({
+        next: (videojuegos: ResponseInit) => {
+          console.log(videojuegos.numeroDocumentos);
+          this.videogameList = videojuegos.videojuegos;
+          console.log(videojuegos.numeroDocumentos);
+          this.numeroTotalDoc = videojuegos.numeroDocumentos;
+          if (this.videogameList.length == 0) {
+            this.viewLoader = false;
+          }
+          /// Cambiar la cantidad maxima de documentos
+          ///La cantidad por pagina queda fija
+        },
 
-      error: () => alert('Busqueda no disponible'),
-    });
+        error: () => alert('Busqueda no disponible'),
+      });
+  }
+
+  // Por cada cambio en el tamaño se resetea el paginado
+  changeSize($numero: number) {
+    this.numeroDocPagina = $numero;
+    this.videogameList = [];
+    this.viewLoader = true;
+    /// Salta 0 y devuelve el numero de documentos por pagina
+    this.videojuegoService
+      .getVideogames(0, this.numeroDocPagina, this.busqueda)
+      .subscribe({
+        next: (videojuegos: ResponseInit) => {
+          this.videogameList = videojuegos.videojuegos;
+        },
+        error: () => {
+          this.viewLoader = false;
+          this.error = true;
+        },
+      });
   }
 }
