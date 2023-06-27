@@ -3,7 +3,7 @@
     <li class="page-item" *ngFor="let page of paginas">
       <a
         [ngClass]="
-          paginaSeleccionada == page.numero
+          paginaActual.numero == page.numero
             ? 'page-link btn active'
             : 'page-link btn '
         "

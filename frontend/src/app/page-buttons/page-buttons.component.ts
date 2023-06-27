@@ -19,7 +19,7 @@ export class PageButtonsComponent implements OnChanges {
   @Input() documentosTotales!: number;
   paginas!: Pagina[];
   @Output() OnClick = new EventEmitter<Pagina>();
-  paginaSeleccionada!: number;
+  @Input() paginaActual!: Pagina;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['documentosTotales'] || changes['medidaPagina']) {
@@ -41,11 +41,10 @@ export class PageButtonsComponent implements OnChanges {
       } as Pagina);
       max = max + this.medidaPagina;
     }
-    this.paginaSeleccionada = 1;
   }
 
   onClickPage(page: Pagina) {
     this.OnClick.emit(page);
-    this.paginaSeleccionada = page.numero;
+    this.paginaActual = page;
   }
 }

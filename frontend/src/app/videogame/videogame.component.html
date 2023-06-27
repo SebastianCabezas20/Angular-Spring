@@ -26,6 +26,7 @@
           placeholder="Buscar"
           id="search"
           aria-label="Search"
+          (keydown)="enter($event, valueSearch.value)"
         />
         <button
           class="btn btn-outline-success"
@@ -76,6 +77,7 @@
         [documentosTotales]="numeroTotalDoc"
         [medidaPagina]="numeroDocPagina"
         (OnClick)="paginaSeleccionada($event)"
+        [paginaActual]="paginaActual"
       ></app-page-buttons>
     </div>
 

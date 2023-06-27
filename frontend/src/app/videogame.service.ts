@@ -12,16 +12,29 @@ export class VideogameService {
 
   //Numero sera el total de documentos y videogame, los maximos de documentos por pagina
   // Solo se use en el fetch inicial
-  getVideogames(
-    skip: number,
-    max: number,
-    busqueda: string
-  ): Observable<ResponseInit> {
+  getVideogames(max: number, busqueda: string): Observable<ResponseInit> {
     return this.http.post<ResponseInit>('http://localhost:8080/videogame/get', {
-      skip: skip,
+      skip: 0,
       numeroPorPagina: max,
       busqueda: busqueda,
     });
+  }
+
+  //Numero sera el total de documentos, los maximos de documentos por pagina
+  // Uso para el cambio de pagina
+  getVideogamesPage(
+    skip: number,
+    max: number,
+    busqueda: string
+  ): Observable<Videogame[]> {
+    return this.http.post<Videogame[]>(
+      'http://localhost:8080/videogame/get/page',
+      {
+        skip: skip,
+        numeroPorPagina: max,
+        busqueda: busqueda,
+      }
+    );
   }
 
   getVideogameById(id: string): Observable<Videogame> {

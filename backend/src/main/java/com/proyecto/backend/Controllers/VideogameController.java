@@ -1,5 +1,7 @@
 package com.proyecto.backend.Controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,10 +28,19 @@ public class VideogameController {
     @Autowired
     private VideogameService serviceVideojuego;
 
+    // Fetch inicial de busqueda o inicio
     @PostMapping("/get")
     public ResponseEntity<ResponseData> getVideogame(@RequestBody Pagination page) {
         return ResponseEntity
-                .ok(this.serviceVideojuego.fetchAll(page.getSkip(), page.getNumeroPorPagina(), page.getBusqueda()));
+                .ok(this.serviceVideojuego.fetchAll(page.getNumeroPorPagina(), page.getBusqueda()));
+
+    }
+
+    // Fetch por cambio de pagina
+    @PostMapping("/get/page")
+    public ResponseEntity<List<Videogame>> getVideogamePage(@RequestBody Pagination page) {
+        return ResponseEntity
+                .ok(this.serviceVideojuego.getByPage(page.getSkip(), page.getNumeroPorPagina(), page.getBusqueda()));
 
     }
 

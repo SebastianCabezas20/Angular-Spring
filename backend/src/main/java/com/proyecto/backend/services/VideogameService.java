@@ -17,15 +17,35 @@ public class VideogameService {
     private RepositoryVG repositoryVG;
 
     // Obtener todos los videojuegos
-    public ResponseData fetchAll(int skip, int numeroPorPagina, String busqueda) {
+    public ResponseData fetchAll(int numeroPorPagina, String busqueda) {
         // Obtencion de documentos
-        List<Videogame> lista = repositoryVG.findByPage(skip, numeroPorPagina, busqueda);
+        List<Videogame> lista = repositoryVG.FindAndCountSearch(busqueda);
+
         // Preparar la respuesta
-        int numero = repositoryVG.FindAndCountSearch(busqueda).size();
         ResponseData response = new ResponseData();
-        response.setNumeroDocumentos(numero);
-        response.setVideojuegos(lista);
+
+        response.setNumeroDocumentos(lista.size());
+
+        if (lista.size() <= numeroPorPagina) {
+            response.setVideojuegos(lista);
+        } else {
+            response.setVideojuegos(lista.subList(0, numeroPorPagina));
+
+        }
         return response;
+    }
+
+    // Obtener los videojuegos por pagina
+    public List<Videogame> getByPage(int skip, int numeroPorPagina, String busqueda) {
+        try {
+            // Obtencion de documentos
+            List<Videogame> lista = repositoryVG.findByPage(skip, numeroPorPagina, busqueda);
+            return lista;
+        } catch (Exception e) {
+            // Response nulo
+            return null;
+        }
+
     }
 
     // Creacion de un videojuego
@@ -76,7 +96,4 @@ public class VideogameService {
         }
     }
 
-    public long countDocument() {
-        return repositoryVG.count();
-    }
 }
